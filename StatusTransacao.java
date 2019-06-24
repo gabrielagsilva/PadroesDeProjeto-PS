@@ -1,0 +1,3 @@
+public enum StatusTransacao {
+    APROVADA, AGUARDANDO_CONFIRMACAO, CANCELADA, NAO_AUTORIZADA;
+}

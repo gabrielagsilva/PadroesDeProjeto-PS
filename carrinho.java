@@ -1,13 +1,12 @@
 import java.util.ArrayList;
-import java.util.List;
 import Servico;
 import Compra;
 import TipoPagamento;
 
 public class Carrinho {
-    private List<Servico> servicos;
+    private ArrayList<Servico> servicos;
     private float valorTotal;
-    private TipoPagamento tipo;
+    private TipoPagamento tipoPagamento;
 
     public Carrinho() {
         this.servicos = new ArrayList<Servico>();

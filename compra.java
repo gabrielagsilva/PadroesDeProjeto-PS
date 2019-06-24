@@ -1,4 +1,5 @@
 import TipoPagamento;
+import StatusTransacao;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -6,13 +7,14 @@ public class Compra {
     private int id;
     private String dataHora;
     private TipoPagamento tipo;
-    private List<Servico> servicos;
+    private ArrayList<Servico> servicos;
     private float valorTotal; // talvez não tenha esse atributo, somente a função getValorTotal
+    private StatusTransacao status;
     
 
-    public Compra(int id, List<Servico> servicos, TipoPagamento tipo) {
+    public Compra(int id, ArrayList<Servico> servicos, TipoPagamento tipo) {
         this.id = id;
-        this.date = new Date().toString();
+        this.dataHora = new Date().toString();
         this.tipo = tipo;
         this.servicos = servicos;
         this.valorTotal = this.setValorTotal();
@@ -23,14 +25,14 @@ public class Compra {
     }
 
     public String getDataHora() {
-        return this.date;
+        return this.dataHora;
     }
 
     public TipoPagamento getTipo() {
         return this.tipo;
     }
 
-    public List<Servico> getServicos() {
+    public ArrayList<Servico> getServicos() {
         return this.servicos;
     }
 

@@ -36,8 +36,6 @@ public class Historico {
         }
     }
 
-    public void cancelarItem()
-
     public void alterarCompra(int idCompra, Servico s) {
         Compra c = this.buscarCompras(id);
         if (c != null) {

@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Calendar;
 import Compra;
+import java.util.NoSuchElementException;
 
 public class Historico {
     private ArrayList<Compra> compras;
@@ -10,11 +11,15 @@ public class Historico {
     }
 
     public Compra buscarCompras(int id) {
-        for (Compra c: this.compras) {
-            if (id == c.id)
-                return c;
+        try {
+            for (Compra c: this.compras) {
+                if (id == c.id)
+                    return c;
+            }
+        } catch (NoSuchElementException e) {
+            System.out.println(e, "Não foi achado a compra na sua lista."); 
+            return null;
         }
-        return null;
     }
 
     public void adicionarCompra(Compra c) {

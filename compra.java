@@ -9,16 +9,17 @@ public class Compra {
     private Calendar dataHora;
     private TipoPagamento tipo;
     private ArrayList<Servico> servicos;
-    private float valorTotal; // talvez não tenha esse atributo, somente a função getValorTotal
+    private float valorTotal;
     private StatusTransacao status;
     
 
-    public Compra(int id, ArrayList<Servico> servicos, TipoPagamento tipo) {
+    public Compra(int id, ArrayList<Servico> servicos, TipoPagamento tipo, float valorTotal, StatusTransacao status) {
         this.id = id;
-        this.dataHora = Calendar.getInstance();;
-        this.tipo = tipo;
+        this.dataHora = Calendar.getInstance();
         this.servicos = servicos;
-        this.valorTotal = this.setValorTotal();
+        this.tipo = tipo;
+        this.valorTotal = this.valorTotal;
+        this.status = status;
     }
 
     public int getID() {
@@ -41,30 +42,15 @@ public class Compra {
         return this.valorTotal;
     }
 
-    private float setValorTotal() {
-        float valorTotal = 0;
-        for (Servico s: this.servicos) {
-            valorTotal += s.getValor();
-        }
-        return valorTotal;
+    public void setValorTotal(float valorTotal) {
+        this.valorTotal = valorTotal;
     }
 
-    // public String cancelarCompra() {}
-    // Deve ser implementado pelo histórico, pois ele que "mantém" as compras
+    public void setStatusTransacao(StatusTransacao status) {
+        this.status = status; 
+    }
 
-    // public String alterarCompra() {}
-    // Talvez deva ser implementado pelo histórico, pois ele que "mantém" as compras
-
-    // public String finalizarCompra() {}
-    // Deve ser implementado pelo carrinho e alterar o histórico
-
-    // implementei na classe carrinho
-    // public void enviarEmailConfirmacao() {
-    //     return;
-    // }
-
-    // deve ficar na classe onde o cancelamento está sendo efetivado
-    // public void enviarEmailCancelamento() {
-    //     return;
-    // }
+    public StatusTransacao getStatusTransacao() {
+        return this.status;
+    }
 }

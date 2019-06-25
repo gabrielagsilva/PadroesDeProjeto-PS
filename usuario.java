@@ -3,8 +3,6 @@ public class Usuario {
     private int cpf;
     private String nome;
     private String senha;
-    // private Historico historico;
-    // private Carrinho carrinho;
 
     public String getEmail() {
         return this.email;

@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import Servico;
 import Compra;
 import TipoPagamento;
+import StatusTransacao;
 
 public class Carrinho {
     private ArrayList<Servico> servicos;
@@ -44,17 +45,20 @@ public class Carrinho {
         return efetivado; 
     }
 
-    // public receberDadosPagamento() 
-
     public void enviarEmailConfirmacao() {
         System.out.println("Compra realizada com sucesso!");
     }
 
     public Compra finalizarCarrinho() {
-        if (this.enviarPagamento()) {
-            c = new Compra(0, this.servicos, this.tipoPagamento);
+        boolean efetivado = this.enviarPagamento();
+        Compra c = new Compra(0, this.servicos, this.tipoPagamento, this.valorTotal, StatusTransacao.AGUARDANDO_PAGAMENTO);
+        if (efetivado) {
+            c.setStatusTransacao(StatusTransacao.APROVADA);
             this.enviarEmailConfirmacao();
-            return c; // para adicionar no historico
         }
+        else {
+            c.setStatusTransacao(StatusTransacao.NAO_APROVADA);
+        }
+        return c; // para adicionar no historico
     }
 }

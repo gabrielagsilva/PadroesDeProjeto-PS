@@ -2,7 +2,9 @@ import java.util.ArrayList;
 import Servico;
 import Compra;
 import TipoPagamento;
+import java.util.NoSuchElementException;
 import StatusTransacao;
+
 
 public class Carrinho {
     private ArrayList<Servico> servicos;
@@ -24,9 +26,14 @@ public class Carrinho {
     }
 
     public void removerItem(Servico s) {
-        int index = this.servicos.indexOf(s);
-        this.servicos.remove(index);
-        this.valorTotal -= s.getValor();
+        try {
+            int index = this.servicos.indexOf(s);
+            this.servicos.remove(index);
+            this.valorTotal -= s.getValor();    
+        } catch (NoSuchElementException e) {
+            System.out.println(e, "Não foi achado o item na sua lista."); 
+        }
+        
     }
 
     public void esvaziar() {

@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.Calendar;
 import Compra;
-import TipoServico;
 import Java.util.NoSuchElementException;
 
 
@@ -31,6 +30,27 @@ public class Historico {
         if (c != null) {
             Servico s = c.buscarServico(idServico);
             s.alterarServico(alteracoes);
+        }
+    }
+
+    public void enviarEmailCancelamento() {
+        System.out.prinln("Compra cancelada.");
+    }
+
+    public void cancelarCompra(int id) {
+        Compra c = this.buscarCompras(id);
+        if (c != null) {
+            float valor = c.getValorTotal();
+            Calendar umaSemanaDepois = c.getDataHora().clone();
+            umaSemanaDepois.add(Calendar.DATE, 7);
+            if (Calendar.getInstance().after(umaSemanaDepois)) {
+                // Cobrar taxa de 30%. Criar classe pra pagamento com cartão?
+            } else {
+                // Reembolso total
+            }
+            // devolucao de servicos
+            c.cancelarCompra();
+            this.enviarEmailCancelamento();
         }
     }
 }

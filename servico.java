@@ -1,5 +1,3 @@
-import TipoServico;
-
 public abstract class Servico {
     private float valor;
     private String descricao;

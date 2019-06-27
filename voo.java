@@ -8,6 +8,6 @@ public class Voo extends Servico {
     }
     
     public void alterarServico(String[] alteracoes) {
-        this.setAssento(alteracoes);
+        this.assento = alteracoes;
     }
 }

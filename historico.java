@@ -26,27 +26,6 @@ public class Historico {
         this.compras.add(c);
     }
 
-    public void enviarEmailCancelamento() {
-        System.out.prinln("Compra cancelada.");
-    }
-
-    public void cancelarCompra(int id) {
-        Compra c = this.buscarCompras(id);
-        if (c != null) {
-            float valor = c.getValorTotal();
-            Calendar umaSemanaDepois = c.getDataHora().clone();
-            umaSemanaDepois.add(Calendar.DATE, 7);
-            if (Calendar.getInstance().after(umaSemanaDepois)) {
-                // Cobrar taxa de 30%.
-            } else {
-                // Reembolso total
-            }
-            // devolucao de servicos
-            c.cancelarCompra();
-            this.enviarEmailCancelamento();
-        }
-    }
-
     public void alterarCompra(int idCompra, int idServico, String[] alteracoes) {
         Compra c = this.buscarCompras(id);
         if (c != null) {

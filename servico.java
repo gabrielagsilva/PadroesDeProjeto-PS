@@ -24,6 +24,6 @@ public abstract class Servico {
         this.valor = this.valor*(1-desconto);
     }
 
-    public abstract void getBonificacao(String[] alteracoes);
+    public abstract void alterarServico(String[] alteracoes);
 
 }

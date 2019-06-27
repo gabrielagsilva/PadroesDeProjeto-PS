@@ -2,6 +2,9 @@ import java.util.ArrayList;
 import Servico;
 import Compra;
 import TipoPagamento;
+import java.util.NoSuchElementException;
+import StatusTransacao;
+
 
 public class Carrinho {
     private ArrayList<Servico> servicos;
@@ -23,9 +26,14 @@ public class Carrinho {
     }
 
     public void removerItem(Servico s) {
-        int index = this.servicos.indexOf(s);
-        this.servicos.remove(index);
-        this.valorTotal -= s.getValor();
+        try {
+            int index = this.servicos.indexOf(s);
+            this.servicos.remove(index);
+            this.valorTotal -= s.getValor();    
+        } catch (NoSuchElementException e) {
+            System.out.println(e, "Não foi achado o item na sua lista."); 
+        }
+        
     }
 
     public void esvaziar() {
@@ -44,17 +52,20 @@ public class Carrinho {
         return efetivado; 
     }
 
-    // public receberDadosPagamento() 
-
     public void enviarEmailConfirmacao() {
         System.out.println("Compra realizada com sucesso!");
     }
 
     public Compra finalizarCarrinho() {
-        if (this.enviarPagamento()) {
-            c = new Compra(0, this.servicos, this.tipoPagamento);
+        boolean efetivado = this.enviarPagamento();
+        Compra c = new Compra(0, this.servicos, this.tipoPagamento, this.valorTotal, StatusTransacao.AGUARDANDO_PAGAMENTO);
+        if (efetivado) {
+            c.setStatusTransacao(StatusTransacao.APROVADA);
             this.enviarEmailConfirmacao();
-            return c; // para adicionar no historico
         }
+        else {
+            c.setStatusTransacao(StatusTransacao.NAO_APROVADA);
+        }
+        return c; // para adicionar no historico
     }
 }

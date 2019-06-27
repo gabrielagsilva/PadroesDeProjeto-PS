@@ -73,21 +73,10 @@ public class Compra {
     }
 
     public Servico buscarServico(int id){
-        for (Servico c: this.servicos) {
-            if (id == c.id)
-                return c;
+        for (Servico s: this.servicos) {
+            if (id == s.id)
+                return s;
         }
         throw new NoSuchElementException();
     }
-
-    // public String cancelarCompra() {}
-    // Deve ser implementado pelo histórico, pois ele que "mantém" as compras
-    
-    // public String finalizarCompra() {}
-    // Deve ser implementado pelo carrinho e alterar o histórico
-
-    // implementei na classe carrinho
-    // public void enviarEmailConfirmacao() {
-    //     return;
-    // }
 }

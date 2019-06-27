@@ -1,10 +1,8 @@
 import TipoServico;
 
-public class Servico {
+public abstract class Servico {
     private float valor;
     private String descricao;
-    private int qtDisponivel;
-    private TipoServico tipo;
 
     public float getValor() {
         return this.valor;
@@ -22,20 +20,10 @@ public class Servico {
         this.descricao = descricao;
     }
 
-    public float getQtDisponivel() {
-        return this.qtDisponivel;
-    }
-
-    public void setQtDisponivel(int qtDisponivel) {
-        this.qtDisponivel = qtDisponivel;
-    }
-
     public void receberDesconto(float desconto) {
         this.valor = this.valor*(1-desconto);
     }
 
-    public TipoServico getTipoServico(){
-        return this.tipo;
-    }
+    public abstract void getBonificacao(String[] alteracoes);
 
 }

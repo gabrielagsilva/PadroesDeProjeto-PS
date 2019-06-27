@@ -1,9 +1,18 @@
 import Servico;
 
 public class Passagem extends Servico {
+    private int id;
     private String cadeira;
 
-    public String getcadeira() {
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getID() {
+        return this.id;
+    }
+
+    public String getCadeira() {
         return this.cadeira;
     }
     

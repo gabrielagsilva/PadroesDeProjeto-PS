@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import Servico;
 import Compra;
 import TipoPagamento;
-import java.util.NoSuchElementException;
 import StatusTransacao;
 
 
@@ -26,14 +25,13 @@ public class Carrinho {
     }
 
     public void removerItem(Servico s) {
-        try {
-            int index = this.servicos.indexOf(s);
+        int index = this.servicos.indexOf(s);
+        if(index < 0 || index > this.servicos.size() ){
+            throw new Exception();
+        }else{
             this.servicos.remove(index);
-            this.valorTotal -= s.getValor();    
-        } catch (NoSuchElementException e) {
-            System.out.println(e, "Não foi achado o item na sua lista."); 
+            this.valorTotal -= s.getValor();
         }
-        
     }
 
     public void esvaziar() {

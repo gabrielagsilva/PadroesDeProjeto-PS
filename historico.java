@@ -12,15 +12,15 @@ public class Historico {
     }
 
     public Compra buscarCompras(int id) {
-        try {
-            for (Compra c: this.compras) {
-                if (id == c.id)
-                    return c;
-            }
-        } catch (NoSuchElementException e) {
-            System.out.println(e, "Não foi achado a compra na sua lista."); 
-            return null;
+
+        for (Compra c: this.compras) {
+            if (id == c.id)
+                return c;
+            else
+                throw new Exception();
         }
+        return null;
+        
     }
 
     public void adicionarCompra(Compra c) {

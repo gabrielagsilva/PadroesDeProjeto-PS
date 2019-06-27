@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import Compra;
 import TipoServico;
+import Java.util.NoSuchElementException;
 
 
 public class Historico {
@@ -16,10 +17,8 @@ public class Historico {
         for (Compra c: this.compras) {
             if (id == c.id)
                 return c;
-            else
-                throw new Exception();
         }
-        return null;
+        throw new NoSuchElementException();
         
     }
 
@@ -43,7 +42,7 @@ public class Historico {
                 // Reembolso total
             }
             // devolucao de servicos
-            c.setStatusTransacao(StatusTransacao.CANCELADA);
+            c.cancelarCompra();
             this.enviarEmailCancelamento();
         }
     }

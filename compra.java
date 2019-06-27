@@ -1,8 +1,14 @@
 import TipoPagamento;
-import StatusTransacao;
+import Estado;
+import EstadoInicial;
+import EstadoAprovado;
+import EstadoAguardando;
+import EstadoCancelado;
+import EstadoNaoAutorizado;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Calendar;
+import java.util.NoSuchElementException;
 
 public class Compra {
     private int id;
@@ -10,16 +16,36 @@ public class Compra {
     private TipoPagamento tipo;
     private ArrayList<Servico> servicos;
     private float valorTotal;
-    private StatusTransacao status;
+
+    // Possíveis estados:
+    //      EstadoInicial
+    //      EstadoAprovado
+    //      EstadoAguardando
+    //      EstadoCancelado
+    //      EstadoNaoAutorizado
+    private Status estado;
     
 
-    public Compra(int id, ArrayList<Servico> servicos, TipoPagamento tipo, float valorTotal, StatusTransacao status) {
+    public Compra(int id, ArrayList<Servico> servicos, TipoPagamento tipo, float valorTotal) {
         this.id = id;
         this.dataHora = Calendar.getInstance();
         this.servicos = servicos;
         this.tipo = tipo;
         this.valorTotal = this.valorTotal;
-        this.status = status;
+        this.estado = new EstadoInicial();
+    }
+
+    public void realizarCompra() {
+        this.estado = this.estado.comprar(this.tipo, this.valorTotal);
+        //O enviaEmailConfirmação fica para as subclasses de Estado
+    }
+
+    public void cancelarCompra() {
+        this.estado = estado.cancelar(this.tipo, this.valorTotal);
+    }
+
+    public void setEstado(Estado e) {
+        this.estado = e;
     }
 
     public int getID() {
@@ -43,7 +69,7 @@ public class Compra {
     }
 
     public void setValorTotal(float valorTotal) {
-        this.valorTotal = valorTotal;
+        this.valorTotal = estado.setValorTotal(valorTotal);
     }
 
     public Servico buscarServico(int id){
@@ -51,17 +77,9 @@ public class Compra {
             if (id == c.id)
                 return c;
         }
-        return null;
+        throw new NoSuchElementException();
     }
 
-    public void setStatusTransacao(StatusTransacao status) {
-        this.status = status; 
-    }
-
-    public StatusTransacao getStatusTransacao() {
-        return this.status;
-    }
-    
     // public String cancelarCompra() {}
     // Deve ser implementado pelo histórico, pois ele que "mantém" as compras
     

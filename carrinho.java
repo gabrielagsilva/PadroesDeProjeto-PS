@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import Servico;
 import Compra;
 import TipoPagamento;
-import StatusTransacao;
+import java.util.NoSuchElementException;
 
 
 public class Carrinho {
@@ -27,7 +27,7 @@ public class Carrinho {
     public void removerItem(Servico s) {
         int index = this.servicos.indexOf(s);
         if(index < 0 || index > this.servicos.size() ){
-            throw new Exception();
+            throw new NoSuchElementException();
         }else{
             this.servicos.remove(index);
             this.valorTotal -= s.getValor();
@@ -39,31 +39,10 @@ public class Carrinho {
         this.valorTotal = 0;
     }
 
-    public boolean enviarPagamento() {
-        // selecionar método
-        TipoPagamento tipo = TipoPagamento.CARTAO;
-        // enviar valor -> retorno da operadora de pagamento
-        boolean efetivado = true;
-        if (efetivado) {
-            this.tipoPagamento = tipo;
-        }
-        return efetivado; 
-    }
-
-    public void enviarEmailConfirmacao() {
-        System.out.println("Compra realizada com sucesso!");
-    }
-
     public Compra finalizarCarrinho() {
-        boolean efetivado = this.enviarPagamento();
-        Compra c = new Compra(0, this.servicos, this.tipoPagamento, this.valorTotal, StatusTransacao.AGUARDANDO_PAGAMENTO);
-        if (efetivado) {
-            c.setStatusTransacao(StatusTransacao.APROVADA);
-            this.enviarEmailConfirmacao();
-        }
-        else {
-            c.setStatusTransacao(StatusTransacao.NAO_APROVADA);
-        }
-        return c; // para adicionar no historico
+        Compra c = new Compra(0, this.servicos, this.tipoPagamento, this.valorTotal);
+        c.realizarCompra();
+        return c;
     }
+
 }

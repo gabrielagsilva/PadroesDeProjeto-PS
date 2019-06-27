@@ -49,6 +49,14 @@ public class Compra {
         return valorTotal;
     }
 
+    public Servico buscarServico(int id){
+        for (Servico c: this.servicos) {
+            if (id == c.id)
+                return c;
+        }
+        return null;
+    }
+
     // public String cancelarCompra() {}
     // Deve ser implementado pelo histórico, pois ele que "mantém" as compras
 

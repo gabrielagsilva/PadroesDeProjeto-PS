@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Calendar;
 import Compra;
+import TipoServico;
 
 public class Historico {
     private ArrayList<Compra> compras;
@@ -36,9 +37,24 @@ public class Historico {
         }
     }
 
-    public void alterarCompra(int idCompra, Servico s) {
+    public void alterarCompra(int idCompra, int idServico) {
         Compra c = this.buscarCompras(id);
         if (c != null) {
+            Servico s = c.getServico();
+            TipoServico tipoS = s.getTipoServico();
+            switch (tipoS){
+                case PASSAGEM:
+                    //chamar o alterar servico da classe passagem
+                    break;
+                case PASSEIO:
+                    //chamar o alterar servico da classe passeio
+                    break;
+                case ESTADIA:
+                    //chamar o alterar servico da classe estadia
+                    break;
+                default:
+                    throw new Exception();
+            }
             // Encontrar o serviço a ser modificado. Serviço precisa de ID???
             // Modificar o serviço (remover o serviço e adicionar outro?)
             // Cobrar taxa de 15%
